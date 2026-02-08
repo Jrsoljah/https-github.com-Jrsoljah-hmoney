@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harleen 💘 Valentine?</title>
+  <style>
+    :root{
+      --bg1:#ffecf2;
+      --bg2:#ffe6fb;
+      --pink:#ff4d8d;
+      --hot:#ff2d6d;
+      --red:#ff1a1a;
+      --purple:#9b5cff;
+      --text:#2b2b2b;
+      --card:#ffffffcc;
+      --shadow: 0 18px 55px rgba(0,0,0,.12);
+      --glass: blur(10px);
+      --radius: 26px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      overflow:hidden;
+      background: radial-gradient(1200px 800px at 20% 20%, var(--bg2), transparent 60%),
+                  radial-gradient(1200px 800px at 80% 20%, #ffe0ea, transparent 60%),
+                  radial-gradient(1200px 800px at 50% 90%, #fff0f7, transparent 60%),
+                  linear-gradient(135deg, var(--bg1), #fff);
+      position:relative;
+    }
+
+    .glow{
+      position:absolute;
+      inset:-30%;
+      background: conic-gradient(from 180deg, #ff9acb, #ffd1e6, #b9a0ff, #ff9acb);
+      opacity:.12;
+      filter: blur(60px);
+      animation: spin 18s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .hearts, .sparkles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .heart{
+      position:absolute;
+      bottom:-60px;
+      width:24px; height:24px;
+      transform: rotate(45deg);
+      background: rgba(255,77,141,.75);
+      border-radius: 6px;
+      filter: drop-shadow(0 8px 10px rgba(255,77,141,.25));
+      animation: floatUp var(--dur) linear infinite;
+      opacity:.9;
+    }
+    .heart::before, .heart::after{
+      content:"";
+      position:absolute;
+      width:24px; height:24px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart::before{ left:-12px; top:0; }
+    .heart::after{ top:-12px; left:0; }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) rotate(45deg) scale(var(--s)); opacity:0; }
+      10%{ opacity:.9; }
+      100%{ transform: translateY(calc(-110vh)) rotate(45deg) scale(var(--s)); opacity:0; }
+    }
+
+    .sparkle{
+      position:absolute;
+      width:6px; height:6px;
+      background: rgba(255,255,255,.95);
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(255,77,141,.55);
+      opacity:.0;
+      animation: twinkle var(--dur) ease-in-out infinite;
+    }
+    @keyframes twinkle{
+      0%,100%{ transform: scale(.6); opacity:0; }
+      40%{ opacity:.95; transform: scale(1.2); }
+      60%{ opacity:.25; transform: scale(.9); }
+    }
+
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding: 22px;
+      position:relative;
+      z-index:2;
+    }
+    .card{
+      width:min(820px, 94vw);
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: var(--glass);
+      -webkit-backdrop-filter: var(--glass);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.7);
+      padding: 28px 24px 22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .topRow{
+      display:flex;
+      gap:18px;
+      align-items:stretch;
+      flex-wrap:wrap;
+    }
+
+    .photoWrap{
+      flex: 0 0 280px;
+      width:280px;
+      max-width: 86vw;
+      border-radius: 22px;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(255,45,109,.30), rgba(155,92,255,.25));
+      box-shadow: 0 18px 40px rgba(0,0,0,.10);
+      border: 1px solid rgba(255,255,255,.7);
+      position:relative;
+      overflow:hidden;
+    }
+    .photoWrap::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), transparent 45%),
+                  radial-gradient(circle at 70% 70%, rgba(255,255,255,.22), transparent 50%);
+      filter: blur(10px);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .photo{
+      width:100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 2px solid rgba(255,255,255,.85);
+      position:relative;
+      z-index:1;
+      transform: translateZ(0);
+    }
+    .photoCaption{
+      margin-top:10px;
+      font-weight:800;
+      text-align:center;
+      letter-spacing:.2px;
+      position:relative;
+      z-index:1;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,77,141,.10);
+      border: 1px solid rgba(255,77,141,.22);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .badge .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--hot);
+      box-shadow: 0 0 0 6px rgba(255,45,109,.12);
+    }
+
+    .content{
+      flex: 1 1 320px;
+      min-width: 280px;
+    }
+
+    h1{
+      margin:14px 0 6px;
+      font-size: clamp(32px, 4.6vw, 52px);
+      line-height: 1.05;
+      letter-spacing:-.8px;
+    }
+    .name{
+      background: linear-gradient(90deg, var(--hot), var(--purple));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      font-weight:900;
+    }
+    p{
+      margin: 8px 0 14px;
+      font-size: clamp(16px, 2.1vw, 18px);
+      line-height:1.45;
+      opacity:.9;
+    }
+
+    .buttons{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+      align-items:center;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing:.3px;
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      user-select:none;
+    }
+    button:active{ transform: translateY(1px) scale(.99); }
+
+    .yes{
+      background: linear-gradient(135deg, #ff2d6d, #ff7eb6);
+      color:white;
+      box-shadow: 0 16px 30px rgba(255,45,109,.25);
+    }
+    .yes:hover{ filter: brightness(1.03); transform: translateY(-1px); }
+
+    .no{
+      background: rgba(255,255,255,.8);
+      border: 1px solid rgba(0,0,0,.08);
+      color: #333;
+      box-shadow: 0 16px 30px rgba(0,0,0,.06);
+    }
+    .no:hover{ transform: translateY(-1px); }
+
+    .hint{
+      margin-top: 10px;
+      font-size: 14px;
+      opacity:.75;
+    }
+
+    .status{
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(0,0,0,.06);
+      font-weight: 800;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      min-height: 52px;
+    }
+    .status .icon{
+      width:36px; height:36px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,77,141,.10);
+      border: 1px solid rgba(255,77,141,.20);
+      font-size: 20px;
+    }
+    .status.good .icon{
+      background: rgba(46, 204, 113, .12);
+      border-color: rgba(46,204,113,.22);
+    }
+    .status.bad .icon{
+      background: rgba(255, 26, 26, .12);
+      border-color: rgba(255, 26, 26, .22);
+    }
+
+    .teddy{
+      position:absolute;
+      width: 118px;
+      height: 118px;
+      display:grid;
+      place-items:center;
+      font-size: 72px;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.12));
+      opacity:.95;
+      transform: rotate(var(--rot));
+      animation: bob 3.6s ease-in-out infinite;
+      z-index:3;
+      pointer-events:none;
+    }
+    @keyframes bob{
+      0%,100%{ transform: translateY(0) rotate(var(--rot)); }
+      50%{ transform: translateY(-10px) rotate(var(--rot)); }
+    }
+    .t1{ top: 16px; left: 16px; --rot: -8deg; }
+    .t2{ top: 18px; right: 18px; --rot: 10deg; animation-delay: .3s;}
+    .t3{ bottom: 18px; left: 18px; --rot: 8deg; animation-delay: .6s;}
+    .t4{ bottom: 18px; right: 18px; --rot: -10deg; animation-delay: .9s;}
+
+    .flash{
+      position:absolute;
+      inset:0;
+      background: rgba(255,0,0,.45);
+      opacity:0;
+      pointer-events:none;
+      z-index: 10;
+    }
+    .flash.on{ animation: flash 0.65s ease-in-out; }
+    @keyframes flash{
+      0%{opacity:0}
+      20%{opacity:1}
+      100%{opacity:0}
+    }
+    .shake{ animation: shake .45s ease-in-out; }
+    @keyframes shake{
+      0%,100%{ transform: translateX(0); }
+      15%{ transform: translateX(-10px); }
+      30%{ transform: translateX(10px); }
+      45%{ transform: translateX(-8px); }
+      60%{ transform: translateX(8px); }
+      75%{ transform: translateX(-4px); }
+    }
+
+    .celebrate{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index: 9;
+      overflow:hidden;
+    }
+    .balloon{
+      position:absolute;
+      bottom:-120px;
+      width:38px; height:48px;
+      border-radius: 18px 18px 18px 18px / 24px 24px 18px 18px;
+      background: rgba(255,77,141,.9);
+      box-shadow: 0 18px 35px rgba(255,77,141,.22);
+      animation: balloonUp var(--dur) ease-in infinite;
+      transform: translateX(0);
+    }
+    .balloon::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top: 46px;
+      width:2px;
+      height: 55px;
+      background: rgba(0,0,0,.15);
+      transform: translateX(-50%);
+    }
+    @keyframes balloonUp{
+      0%{ transform: translate(var(--x), 0) scale(var(--s)); opacity:0; }
+      10%{ opacity:1; }
+      100%{ transform: translate(calc(var(--x) + 40px), calc(-120vh)) scale(var(--s)); opacity:0; }
+    }
+
+    .confetti{
+      position:absolute;
+      top:-20px;
+      width:10px; height:14px;
+      border-radius: 4px;
+      background: rgba(155,92,255,.85);
+      animation: confettiFall var(--dur) linear infinite;
+      opacity: .95;
+    }
+    @keyframes confettiFall{
+      0%{ transform: translate(var(--x), 0) rotate(0deg); }
+      100%{ transform: translate(calc(var(--x) + 90px), 120vh) rotate(720deg); }
+    }
+
+    .kiss{
+      position:absolute;
+      left:50%;
+      top: 14%;
+      transform: translateX(-50%) scale(.6);
+      font-size: 56px;
+      opacity:0;
+      z-index: 11;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
+    }
+    .kiss.on{ animation: pop 1.1s ease forwards; }
+    @keyframes pop{
+      0%{ opacity:0; transform: translateX(-50%) scale(.6); }
+      25%{ opacity:1; transform: translateX(-50%) scale(1.08); }
+      55%{ opacity:1; transform: translateX(-50%) scale(1.0); }
+      100%{ opacity:0; transform: translateX(-50%) scale(.9); }
+    }
+
+    .footer{
+      margin-top: 12px;
+      font-size: 12.5px;
+      opacity:.65;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+
+  <div class="hearts" id="hearts"></div>
+  <div class="sparkles" id="sparkles"></div>
+
+  <!-- Teddy bears around site -->
+  <div class="teddy t1">🧸</div>
+  <div class="teddy t2">🧸</div>
+  <div class="teddy t3">🧸</div>
+  <div class="teddy t4">🧸</div>
+
+  <div class="flash" id="flash"></div>
+  <div class="celebrate" id="celebrate"></div>
+  <div class="kiss" id="kiss">💋 MWAH 💋</div>
+
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="topRow">
+        <!-- PHOTO: Put your file in same folder and name it harleen-photo.jpg -->
+        <div class="photoWrap">
+          <img class="photo" src="harleen-photo.jpg" alt="Us ❤️">
+          <div class="photoCaption">DUOOOO 💞</div>
+        </div>
+
+        <div class="content">
+          <div class="badge"><span class="dot"></span> Valentine’s Proposal Protocol</div>
+
+          <h1>
+            <span class="name">Harleen</span>… will you be my Valentine? 💘
+          </h1>
+          <p>
+            I brought hearts, teddy bears, balloons, and a my love (I will throw in a sneaky duo).
+            Choose wisely 😌
+          </p>
+
+          <div class="buttons">
+            <button class="yes" id="yesBtn">YES 💖</button>
+            <button class="no" id="noBtn">NO 🙃</button>
+          </div>
+
+          <div class="hint">Hint: there is only one correct answer.</div>
+
+          <div class="status" id="status">
+            <div class="icon">💌</div>
+            <div id="statusText">yo hoooo, my love…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Built with 100% of my love, 100% valorant skill, infinite teddy bears on me. 🧸💞
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hearts = document.getElementById("hearts");
+    const sparkles = document.getElementById("sparkles");
+    const celebrate = document.getElementById("celebrate");
+    const flash = document.getElementById("flash");
+    const card = document.getElementById("card");
+    const status = document.getElementById("status");
+    const statusText = document.getElementById("statusText");
+    const kiss = document.getElementById("kiss");
+
+    function spawnHearts(n=26){
+      for(let i=0;i<n;i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        const left = Math.random()*100;
+        const dur = 7 + Math.random()*7;
+        const scale = 0.6 + Math.random()*1.3;
+        h.style.left = left + "vw";
+        h.style.setProperty("--dur", dur + "s");
+        h.style.setProperty("--s", scale);
+        h.style.background = `rgba(255, ${60+Math.floor(Math.random()*80)}, ${140+Math.floor(Math.random()*80)}, ${0.55+Math.random()*0.35})`;
+        h.style.animationDelay = (-Math.random()*dur) + "s";
+        hearts.appendChild(h);
+      }
+    }
+
+    function spawnSparkles(n=34){
+      for(let i=0;i<n;i++){
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = (Math.random()*100) + "vw";
+        s.style.top = (Math.random()*100) + "vh";
+        const dur = 1.8 + Math.random()*2.8;
+        s.style.setProperty("--dur", dur + "s");
+        s.style.animationDelay = (-Math.random()*dur) + "s";
+        sparkles.appendChild(s);
+      }
+    }
+
+    function burstBalloons(count=14){
+      for(let i=0;i<count;i++){
+        const b = document.createElement("div");
+        b.className = "balloon";
+        b.style.left = (Math.random()*100) + "vw";
+        b.style.setProperty("--dur", (4.8 + Math.random()*2.6) + "s");
+        b.style.setProperty("--x", (Math.random()*60 - 30) + "px");
+        b.style.setProperty("--s", (0.75 + Math.random()*0.9));
+        const palette = [
+          "rgba(255,77,141,.92)",
+          "rgba(155,92,255,.92)",
+          "rgba(255,179,71,.92)",
+          "rgba(46,204,113,.92)",
+          "rgba(99,205,255,.92)"
+        ];
+        b.style.background = palette[Math.floor(Math.random()*palette.length)];
+        celebrate.appendChild(b);
+        setTimeout(()=>b.remove(), 8000);
+      }
+    }
+
+    function burstConfetti(count=70){
+      for(let i=0;i<count;i++){
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = (Math.random()*100) + "vw";
+        c.style.setProperty("--x", (Math.random()*60 - 30) + "px");
+        c.style.setProperty("--dur", (3.6 + Math.random()*2.2) + "s");
+        const palette = [
+          "rgba(255,45,109,.9)",
+          "rgba(155,92,255,.9)",
+          "rgba(255,179,71,.9)",
+          "rgba(46,204,113,.9)",
+          "rgba(99,205,255,.9)",
+          "rgba(255,255,255,.95)"
+        ];
+        c.style.background = palette[Math.floor(Math.random()*palette.length)];
+        celebrate.appendChild(c);
+        setTimeout(()=>c.remove(), 7000);
+      }
+    }
+
+    function doFlashRed(){
+      flash.classList.remove("on");
+      void flash.offsetWidth;
+      flash.classList.add("on");
+
+      card.classList.remove("shake");
+      void card.offsetWidth;
+      card.classList.add("shake");
+      setTimeout(()=>card.classList.remove("shake"), 520);
+    }
+
+    function showKiss(){
+      kiss.classList.remove("on");
+      void kiss.offsetWidth;
+      kiss.classList.add("on");
+    }
+
+    document.getElementById("noBtn").addEventListener("click", ()=>{
+      doFlashRed();
+      status.className = "status bad";
+      status.querySelector(".icon").textContent = "🚫";
+      statusText.textContent = "Incorrect option 😤 I’ll let you try again because I know you love me.";
+    });
+
+    document.getElementById("yesBtn").addEventListener("click", ()=>{
+      status.className = "status good";
+      status.querySelector(".icon").textContent = "💖";
+      statusText.textContent =
+        "MWAH 😘 I love you very much! Your gift is (hopefully) coming soon… and many more Valentines to come! 🧸🎈💞";
+      showKiss();
+      burstBalloons(20);
+      burstConfetti(100);
+    });
+
+    spawnHearts(28);
+    spawnSparkles(36);
+
+    // subtle periodic balloons in background
+    setInterval(()=>{
+      const b = document.createElement("div");
+      b.className = "balloon";
+      b.style.left = (Math.random()*100) + "vw";
+      b.style.setProperty("--dur", (7.5 + Math.random()*4.5) + "s");
+      b.style.setProperty("--x", (Math.random()*60 - 30) + "px");
+      b.style.setProperty("--s", (0.55 + Math.random()*0.6));
+      b.style.opacity = ".35";
+      b.style.filter = "blur(.2px)";
+      const palette = [
+        "rgba(255,77,141,.55)",
+        "rgba(155,92,255,.55)",
+        "rgba(99,205,255,.55)"
+      ];
+      b.style.background = palette[Math.floor(Math.random()*palette.length)];
+      celebrate.appendChild(b);
+      setTimeout(()=>b.remove(), 12000);
+    }, 2200);
+  </script>
+</body>
+</html>
